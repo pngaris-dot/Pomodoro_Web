@@ -7,8 +7,7 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const UPLOADS = path.join(__dirname, "uploads");                     
-const PRESETS = path.join(__dirname, "..", "Frontend", "Backgrounds"); 
-
+const PRESETS = process.env.PRESETS_DIR || path.join(__dirname, "..", "Frontend", "Backgrounds");
 const app = express();
 app.use(cors());
 
