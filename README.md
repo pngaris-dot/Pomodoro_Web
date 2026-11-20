@@ -21,5 +21,5 @@
 - Link tới web nhạc Spotify và YoutubeMusic.
 
 ## Chạy file
-1. Trong terminal chạy: docker compose up
+1. Trong terminal chạy: docker start pomodoro-backend pomodoro-frontend
 2. Vào link: http://localhost:8080/
