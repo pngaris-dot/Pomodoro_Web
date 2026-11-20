@@ -19,3 +19,7 @@
 - Tải lên ảnh (JPG, PNG, WEBP, GIF) hoặc video (MP4, WEBM), tối đa 200MB.
 **Link**
 - Link tới web nhạc Spotify và YoutubeMusic.
+
+## Chạy file
+1. docker compose up
+2. Vào link: http://localhost:8080/
