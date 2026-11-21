@@ -7,8 +7,13 @@ const load = (k, d) => { try { return JSON.parse(sessionStorage.getItem(k)) ?? d
 const save = (k, v) => sessionStorage.setItem(k, JSON.stringify(v));
 
 /* ============ Settings ============ */
-const DEFAULTS = { font: "sans-serif", bg: "#9e4545", accent: "#ff6b5e", text: "#ffffff", focus: 25, short: 5, long: 15 };
+const DEFAULTS = { font: "ui-monospace, 'Source Code Pro', Consolas, monospace", bg: "#9e4545", accent: "#ff6b5e", text: "#ffffff", focus: 25, short: 5, long: 15 };
 let settings = { ...DEFAULTS, ...load("settings", {}) };
+
+if (![...$("#font").options].some((o) => o.value === settings.font)) {
+  settings.font = DEFAULTS.font;
+  save("settings", settings);
+}
 
 function applySettings() {
   const r = document.documentElement.style;
@@ -244,3 +249,60 @@ document.querySelectorAll("details").forEach((d, i) => {
   d.open = load(key, d.open);
   d.addEventListener("toggle", () => save(key, d.open));
 });
+
+/* ============ Sign in / Sign up (UI only for now) ============ */
+const authPage = $("#authModal");
+let currentUser = null; // will be set once the backend is connected
+
+function setMsg(sel, text, isError) {
+  const m = $(sel);
+  m.textContent = text;
+  m.className = "auth-msg" + (isError ? " error" : "");
+}
+
+function openAuth(which = "login") {
+  authPage.hidden = false;
+  $(which === "login" ? "#loginForm" : "#registerForm").querySelector("input").focus();
+}
+function closeAuth() {
+  authPage.hidden = true;
+  setMsg("#loginMsg", "");
+  setMsg("#registerMsg", "");
+}
+
+// Signed out: show "Sign in | Sign up". Signed in: show "Sign out"
+function updateAuthBar() {
+  $("#authLinks").hidden = !!currentUser;
+  $("#signOutLink").hidden = !currentUser;
+}
+function signOut() {
+  currentUser = null; // TODO: call the backend / clear the token
+  updateAuthBar();
+}
+
+$("#authLogo").onclick = () => { if (!currentUser) openAuth("login"); };
+$("#signInLink").onclick = () => openAuth("login");
+$("#signUpLink").onclick = () => openAuth("register");
+$("#signOutLink").onclick = signOut;
+$("#authClose").onclick = closeAuth;
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !authPage.hidden) closeAuth(); });
+
+$("#registerForm").onsubmit = (e) => {
+  e.preventDefault();
+  const f = e.target;
+  if (f.email.value !== f.verifyEmail.value) return setMsg("#registerMsg", "Emails do not match.", true);
+  if (f.password.value !== f.verifyPassword.value) return setMsg("#registerMsg", "Passwords do not match.", true);
+  // TODO: call the sign-up API
+  setMsg("#registerMsg", "Backend not connected yet: UI only.");
+};
+
+$("#loginForm").onsubmit = (e) => {
+  e.preventDefault();
+  // TODO: call the sign-in API, then set currentUser, call updateAuthBar() and closeAuth()
+  setMsg("#loginMsg", "Backend not connected yet: UI only.");
+};
+
+$("#googleBtn").onclick = () => setMsg("#loginMsg", "Google sign-in is not available yet.");
+$("#forgotBtn").onclick = () => setMsg("#loginMsg", "Password reset is not available yet.");
+
+updateAuthBar();

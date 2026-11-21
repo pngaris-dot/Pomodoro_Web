@@ -39,12 +39,13 @@
             <summary>Settings</summary>
 
             <label>Font
-                <select id="font">
-                    <option value="sans-serif">Sans-serif</option>
-                    <option value="Georgia, serif">Serif</option>
-                    <option value="'Courier New', monospace">Monospace</option>
-                    <option value="'Comic Sans MS', cursive">Cursive</option>
-                </select>
+            <select id="font">
+                <option value="ui-monospace, 'Source Code Pro', Consolas, monospace">Ui-monospace</option>
+                <option value="sans-serif">Sans-serif</option>
+                <option value="Georgia, serif">Serif</option>
+                <option value="'Courier New', monospace">Monospace</option>
+                <option value="'Comic Sans MS', cursive">Cursive</option>
+            </select>
             </label>
 
             <label>Background color <input type="color" id="bgColor" value="#9e4545"></label>
@@ -74,6 +75,52 @@
         <img src="Images/ytmusic.png" alt="YouTube Music">
     </a>
 </nav>
+
+<!-- Auth bar (top-left) -->
+<div class="auth-bar">
+  <button id="authLogo" class="auth-logo" aria-label="Account">
+    <img src="Images/logo.png" alt="Logo" onerror="this.style.display='none'">
+  </button>
+
+  <div id="authLinks" class="auth-links">
+    <button id="signInLink" class="auth-link" type="button">Sign in</button>
+    <span>|</span>
+    <button id="signUpLink" class="auth-link" type="button">Sign up</button>
+  </div>
+  <button id="signOutLink" class="auth-link" type="button" hidden>Sign out</button>
+</div>
+
+<!-- Auth page (full screen) -->
+<div id="authModal" class="auth-page" hidden>
+  <button id="authClose" class="auth-close" aria-label="Close">×</button>
+
+  <div class="auth-wrap">
+    <form id="registerForm" class="auth-form">
+      <h2>Register</h2>
+      <input type="text" name="username" placeholder="username" required autocomplete="username">
+      <input type="email" name="email" placeholder="email" required>
+      <input type="email" name="verifyEmail" placeholder="verify email" required>
+      <input type="password" name="password" placeholder="password" required minlength="6" autocomplete="new-password">
+      <input type="password" name="verifyPassword" placeholder="verify password" required minlength="6" autocomplete="new-password">
+      <button type="submit" class="auth-submit">sign up</button>
+      <p id="registerMsg" class="auth-msg"></p>
+    </form>
+
+    <form id="loginForm" class="auth-form">
+      <h2>Login</h2>
+        <div class="auth-social">
+        <button type="button" id="googleBtn" class="auth-social-btn" aria-label="Sign in with Google">Google</button>
+        </div>
+      <div class="auth-or"><span>or</span></div>
+      <input type="email" name="email" placeholder="email" required autocomplete="email">
+      <input type="password" name="password" placeholder="password" required autocomplete="current-password">
+      <label class="auth-remember"><input type="checkbox" name="remember" checked> remember me</label>
+      <button type="submit" class="auth-submit">sign in</button>
+      <button type="button" id="forgotBtn" class="auth-forgot">forgot password?</button>
+      <p id="loginMsg" class="auth-msg"></p>
+    </form>
+  </div>
+</div>
 
     <script src="app.js"></script>
 </body>
