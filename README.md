@@ -24,6 +24,6 @@
 **Link**
 - Link tới web nhạc Spotify và YoutubeMusic.
 
-## Chạy file
-1. Trong terminal chạy: docker start pomodoro-backend pomodoro-frontend
+## Chạy file - Terminal
+1. docker start pomodoro-backend pomodoro-frontend
 2. cloudflared tunnel --url http://localhost:8080
