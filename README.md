@@ -26,4 +26,4 @@
 
 ## Chạy file
 1. Trong terminal chạy: docker start pomodoro-backend pomodoro-frontend
-2. Vào link: http://localhost:8080/
+2. cloudflared tunnel --url http://localhost:8080

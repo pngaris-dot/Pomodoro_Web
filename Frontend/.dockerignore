@@ -1,6 +1,5 @@
-.git
-.env
-node_modules
 Backgrounds
+.git
+.gitignore
 Dockerfile
 .dockerignore

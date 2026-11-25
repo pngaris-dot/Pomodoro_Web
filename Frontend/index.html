@@ -29,7 +29,7 @@
         <details class="bgpanel">
             <summary>Background</summary>
             <div id="bgGrid" class="bg-grid"></div>
-            <label class="upload">+ Upload image or video
+            <label class="upload" id="bgUploadLabel" hidden>+ Upload image or video
                 <input type="file" id="bgFile" accept="image/*,video/mp4,video/webm" hidden>
             </label>
             <small id="bgMsg"></small>
@@ -76,7 +76,6 @@
     </a>
 </nav>
 
-<!-- Auth bar (top-left) -->
 <div class="auth-bar">
   <button id="authLogo" class="auth-logo" aria-label="Account">
     <img src="Images/logo.png" alt="Logo" onerror="this.style.display='none'">
@@ -87,17 +86,20 @@
     <span>|</span>
     <button id="signUpLink" class="auth-link" type="button">Sign up</button>
   </div>
-  <button id="signOutLink" class="auth-link" type="button" hidden>Sign out</button>
+  <div id="userBar" class="user-bar" hidden>
+    <button id="userBtn" class="auth-link" type="button" title="Your profile"></button>
+    <button id="roleBtn" class="auth-link" type="button"></button>
+    <button id="signOutLink" class="auth-link" type="button">Sign out</button>
+  </div>
 </div>
 
-<!-- Auth page (full screen) -->
 <div id="authModal" class="auth-page" hidden>
   <button id="authClose" class="auth-close" aria-label="Close">×</button>
 
   <div class="auth-wrap">
     <form id="registerForm" class="auth-form">
       <h2>Register</h2>
-      <input type="text" name="username" placeholder="username" required autocomplete="username">
+      <input type="text" name="username" placeholder="username" required minlength="3" maxlength="30" autocomplete="username">
       <input type="email" name="email" placeholder="email" required>
       <input type="email" name="verifyEmail" placeholder="verify email" required>
       <input type="password" name="password" placeholder="password" required minlength="6" autocomplete="new-password">
@@ -108,17 +110,40 @@
 
     <form id="loginForm" class="auth-form">
       <h2>Login</h2>
-        <div class="auth-social">
-        <button type="button" id="googleBtn" class="auth-social-btn" aria-label="Sign in with Google">Google</button>
-        </div>
-      <div class="auth-or"><span>or</span></div>
-      <input type="email" name="email" placeholder="email" required autocomplete="email">
+      <input type="text" name="login" placeholder="email or username" required autocomplete="username">
       <input type="password" name="password" placeholder="password" required autocomplete="current-password">
       <label class="auth-remember"><input type="checkbox" name="remember" checked> remember me</label>
       <button type="submit" class="auth-submit">sign in</button>
-      <button type="button" id="forgotBtn" class="auth-forgot">forgot password?</button>
       <p id="loginMsg" class="auth-msg"></p>
     </form>
+  </div>
+</div>
+
+<section id="profilePanel" class="popup" hidden>
+  <button id="profileClose" class="popup-close" type="button" aria-label="Close">×</button>
+  <h3 id="profileName"></h3>
+  <p id="profileMeta" class="muted"></p>
+  <p id="profileJoined" class="muted"></p>
+
+  <div class="stats">
+    <div class="stat"><strong id="statMinutes">0</strong><span>Focus minutes</span><small id="statHours"></small></div>
+    <div class="stat"><strong id="statSessions">0</strong><span>Sessions</span><small></small></div>
+  </div>
+</section>
+
+<div id="adminModal" class="modal" hidden>
+  <div class="modal-card">
+    <button id="adminClose" class="popup-close" type="button" aria-label="Close">×</button>
+    <h3>Manage users</h3>
+    <p id="adminMsg" class="muted"></p>
+    <div class="table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr><th>User</th><th>Email</th><th>Role</th><th>Sessions</th><th>Minutes</th><th>Joined</th><th></th></tr>
+        </thead>
+        <tbody id="adminUsers"></tbody>
+      </table>
+    </div>
   </div>
 </div>
 

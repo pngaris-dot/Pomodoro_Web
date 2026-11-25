@@ -1,11 +1,15 @@
-FROM node:22-alpine
-WORKDIR /app
-RUN chown node:node /app
-USER node
+FROM node:20-alpine
 
-COPY --chown=node:node package*.json ./
+WORKDIR /app
+
+COPY package*.json ./
 RUN npm ci --omit=dev
 
-COPY --chown=node:node . .
+COPY . .
+RUN mkdir -p /app/uploads && chown -R node:node /app
+
+USER node
+
 EXPOSE 5000
+
 CMD ["node", "index.js"]

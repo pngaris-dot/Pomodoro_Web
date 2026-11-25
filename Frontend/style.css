@@ -335,7 +335,7 @@ button {
   background-color: var(--accent);
 }
 
-/* ============ Auth bar (nhỏ gọn, góc trên trái) ============ */
+/* ============ Auth bar ============ */
 .auth-bar {
   position: fixed;
   top: 16px;
@@ -361,7 +361,7 @@ button {
   align-items: center;
   width: 36px;
   height: 36px;
-  padding: 7px;               /* khoảng đệm: tăng thì logo nhỏ lại, giảm thì logo to ra */
+  padding: 7px;             
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.15);
 }
@@ -370,7 +370,7 @@ button {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;        /* giữ nguyên tỉ lệ, không bị cắt */
+  object-fit: contain;       
 }
 
 .auth-links {
@@ -577,4 +577,195 @@ button {
 .auth-page,
 .auth-page * {
   font-family: var(--font, sans-serif);
+}
+
+/* ============ Thêm cho phần tài khoản (hồ sơ + admin) ============ */
+
+.user-bar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.auth-bar.signed-in {
+  cursor: default;
+}
+
+.auth-bar.signed-in:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.auth-bar.signed-in:hover .auth-logo {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.auth-bar.signed-in .auth-link {
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.auth-bar.signed-in .auth-link:not(:disabled):hover {
+  background-color: var(--accent);
+}
+
+.auth-bar.signed-in .auth-link:disabled {
+  color: var(--text);
+  opacity: 0.75;
+  cursor: default;
+}
+
+/* ----- Hồ sơ người dùng ----- */
+.popup {
+  position: fixed;
+  top: 64px;
+  left: 16px;
+  z-index: 20;
+  width: 320px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 16px;
+}
+
+.popup[hidden],
+.modal[hidden] {
+  display: none;
+}
+
+.popup h3,
+.modal h3 {
+  margin: 0 0 4px;
+}
+
+.muted {
+  margin: 2px 0;
+  font-size: 13px;
+  opacity: 0.75;
+}
+
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.popup-close:hover {
+  background-color: var(--accent);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 8px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.stat strong {
+  font-size: 28px;
+}
+
+.stat span {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.stat small {
+  min-height: 14px;
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+/* ----- Trang quản lý user của admin ----- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-card {
+  position: relative;
+  width: min(860px, 100%);
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 22px;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), var(--bg);
+  border-radius: 16px;
+}
+
+.table-wrap {
+  margin-top: 12px;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 8px 10px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.admin-table th {
+  font-size: 12px;
+  font-weight: normal;
+  opacity: 0.7;
+}
+
+.admin-table select {
+  padding: 2px 4px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+.admin-table .mini {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.admin-table button:disabled,
+.admin-table select:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.admin-table .me td:first-child {
+  font-weight: bold;
+}
+
+.upload[hidden] {
+  display: none;
 }
